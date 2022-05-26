@@ -7,9 +7,11 @@ use MODXSlim\Api\Exceptions\RestfulException;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use MODXSlim\Api\Controllers\Restful;
+use MODXSlim\Api\Traits\TemplateVariables;
 
 class Resource extends Restful
 {
+    use TemplateVariables;
     /**
      * @param ServerRequestInterface $request
      *
@@ -28,7 +30,7 @@ class Resource extends Restful
         $query->select($this->modx->getSelectColumns(modResource::class, 'modResource'));
         $query->where($condition);
         if($params['tvs']) {
-            $this->joinTVs(explode(',', $params['tvs']));
+            $this->joinTVs($query, explode(',', $params['tvs']));
         }
         $resource = $this->modx->getObject(modResource::class, $query);
         if (!$resource) {
