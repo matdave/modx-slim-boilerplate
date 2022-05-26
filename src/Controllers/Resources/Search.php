@@ -34,7 +34,7 @@ class Search extends Restful
         ];
         $params = $this->getParams($request, $defaultParams, $paramsCast, $paramLimits);
         $tvs = explode(',', $params['tvs']);
-        $condition = ['context' => $params['context'], 'published' => true, 'deleted' => false];
+        $condition = ['context_key' => $params['context'], 'published' => true, 'deleted' => false];
         if ($params['query']) {
             $query = [
                 'pagetitle:LIKE' => '%'.$params['query'].'%',
@@ -44,6 +44,7 @@ class Search extends Restful
                 'OR:content:LIKE' => '%'.$params['query'].'%',
             ];
             foreach($tvs as $tv) {
+                if(empty($tv)) continue;
                 $query['OR:tv_'.$tv.':LIKE'] = '%'.$params['query'].'%';
             }
             $condition[] = $query;

@@ -34,7 +34,7 @@ class Listing extends Restful
         ];
         $params = $this->getParams($request, $defaultParams, $paramsCast, $paramLimits);
         $tvs = explode(',', $params['tvs']);
-        $condition = ['parent' => $params['start'], 'context' => $params['context'], 'published' => true, 'deleted' => false];
+        $condition = ['parent' => $params['start'], 'context_key' => $params['context'], 'published' => true, 'deleted' => false];
         if ($params['ignoreMenu']) {
             $condition['hidemenu'] = 0;
         }
