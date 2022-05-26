@@ -34,8 +34,9 @@ class Resource extends Restful
         if (!$resource) {
             throw RestfulException::notFound();
         }
-
-        return $this->respondWithItem($request, $resource);
+        $data = $resource->toArray();
+        $data['content'] = $resource->parseContent();
+        return $this->respondWithItem($request, $data);
     }
 }
 
