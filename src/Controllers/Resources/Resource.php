@@ -22,6 +22,7 @@ class Resource extends Restful
     {
         $defaultParams = ['tvs' => null];
         $params = $this->getParams($request, $defaultParams);
+        $tvs = explode(',', $params['tvs']);
         $condition = ['id' => $request->getAttribute('id'), 'published' => true, 'deleted' => false];
 
         /** @var modResource $resource */
@@ -29,8 +30,8 @@ class Resource extends Restful
         $query = $this->modx->newQuery(modResource::class);
         $query->select($this->modx->getSelectColumns(modResource::class, 'modResource'));
         $query->where($condition);
-        if($params['tvs']) {
-            $this->joinTVs($query, explode(',', $params['tvs']));
+        if($tvs) {
+            $this->joinTVs($query, explode(',', $tvs));
         }
         $resource = $this->modx->getObject(modResource::class, $query);
         if (!$resource) {

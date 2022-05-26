@@ -38,7 +38,7 @@ trait TemplateVariables
         $query->leftJoin(modTemplateVarResource::class, $alias, ["{$alias}.contentid = modResource.id", "{$alias}.tmplvarid = {$tv->id}"]);
         $query->select(
             [
-                $name => $cast ? "CAST({$alias}.value AS {$cast})" : "{$alias}.value"
+                "tv_{$name}" => $cast ? "CAST({$alias}.value AS {$cast})" : "{$alias}.value"
             ]
         );
     }
