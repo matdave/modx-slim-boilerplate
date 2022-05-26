@@ -45,7 +45,7 @@ class Children extends Restful
         $query->select($this->modx->getSelectColumns(modResource::class, 'modResource'));
         $query->where($condition);
         if($tvs) {
-            $this->joinTVs($query, explode(',', $tvs));
+            $this->joinTVs($query, $tvs);
         }
         $query->limit($params['limit'], ($params['page'] - 1) * $params['limit']);
         $query->sortby($params['sortBy'], 'ASC');
