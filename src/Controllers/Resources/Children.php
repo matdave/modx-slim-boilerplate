@@ -55,8 +55,9 @@ class Children extends Restful
         }
         $data = [];
         foreach($resources as $resource) {
-            $data[] = $resource->toArray();
-            $data['content'] = $resource->parseContent();
+            $arr = $resource->toArray();
+            $arr['content'] = $resource->parseContent();
+            $data[] = $arr;
         }
         return $this->respondWithCollection($request, $data);
     }
