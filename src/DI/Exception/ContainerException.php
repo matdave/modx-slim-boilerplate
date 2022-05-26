@@ -1,6 +1,7 @@
 <?php
 
 namespace MODXSlim\Api\DI\Exception;
+
 use Psr\Container\ContainerExceptionInterface;
 
 /**

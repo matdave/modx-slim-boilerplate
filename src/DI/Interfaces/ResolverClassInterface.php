@@ -1,6 +1,6 @@
 <?php
 
-namespace MODXSlim\Api\DI\Exception;
+namespace MODXSlim\Api\DI\Interfaces;
 
 interface ResolverClassInterface
 {
