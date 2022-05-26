@@ -2,7 +2,7 @@
 declare(strict_types=1);
 
 use MODXSlim\Api\Controllers\Resources\Children;
-use MODXSlim\Api\Controllers\Resources\List;
+use MODXSlim\Api\Controllers\Resources\Listing;
 use MODXSlim\Api\Controllers\Resources\Resource;
 use MODXSlim\Api\Controllers\Resources\Search;
 use Slim\App;

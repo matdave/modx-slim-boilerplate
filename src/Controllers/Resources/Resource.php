@@ -31,7 +31,7 @@ class Resource extends Restful
         $query->select($this->modx->getSelectColumns(modResource::class, 'modResource'));
         $query->where($condition);
         if($tvs) {
-            $this->joinTVs($query, explode(',', $tvs));
+            $this->joinTVs($query, $tvs);
         }
         $resource = $this->modx->getObject(modResource::class, $query);
         if (!$resource) {
