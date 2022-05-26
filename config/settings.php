@@ -19,7 +19,6 @@ return static function (string $appEnv) {
     ];
 
     if ($appEnv === 'DEVELOPMENT' || $appEnv === 'TEST') {
-        $settings['di_compilation_path'] = '';
         $settings['display_error_details'] = true;
         $settings['logger']['level'] = Logger::DEBUG;
     }
