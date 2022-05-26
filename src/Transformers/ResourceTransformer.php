@@ -3,8 +3,9 @@
 namespace MODXSlim\Api\Transformers;
 
 use MODX\Revolution\modResource;
+use MODXSlim\Api\Exceptions\RestfulException;
 
-class ResourceTransformer extends TwigTransformer
+class ResourceTransformer extends xPDOObjectTransformer
 {
     /**
      * Transform an item to an array structure appropriate for an API response.
@@ -13,9 +14,9 @@ class ResourceTransformer extends TwigTransformer
      * @param  array  $transformerParams
      *
      * @return array
-     * @throws \MODXSlim\Api\Exceptions\RestfulException
+     * @throws RestfulException
      */
-    public function transform(modResource $item, array $transformerParams = []): array
+    public function transform($item, array $transformerParams = []): array
     {
         $data = $item->toArray();
         $data['content'] = $item->parseContent();

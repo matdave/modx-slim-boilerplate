@@ -9,6 +9,6 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use MODXSlim\Api\Controllers\Restful;
 
-class Search extends Restful
+class Listing extends Restful
 {
 }
