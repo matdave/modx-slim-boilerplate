@@ -38,13 +38,13 @@ class Search extends Restful
         if ($params['query']) {
             $query = [
                 'pagetitle:LIKE' => '%'.$params['query'].'%',
-                'longtitle:LIKE' => '%'.$params['query'].'%',
-                'description:LIKE' => '%'.$params['query'].'%',
-                'menutitle:LIKE' => '%'.$params['query'].'%',
-                'content:LIKE' => '%'.$params['query'].'%',
+                'OR:longtitle:LIKE' => '%'.$params['query'].'%',
+                'OR:description:LIKE' => '%'.$params['query'].'%',
+                'OR:menutitle:LIKE' => '%'.$params['query'].'%',
+                'OR:content:LIKE' => '%'.$params['query'].'%',
             ];
             foreach($tvs as $tv) {
-                $query['tv_'.$tv.':LIKE'] = '%'.$params['query'].'%';
+                $query['OR:tv_'.$tv.':LIKE'] = '%'.$params['query'].'%';
             }
             $condition[] = $query;
         }
