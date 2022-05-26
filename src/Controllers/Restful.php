@@ -8,24 +8,16 @@ use Slim\Psr7\Response;
 use MODXSlim\Api\Exceptions\RestfulException;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\ResponseInterface;
-use MODXSlim\Api\Transformers\Transformer;
-use MODXSlim\Api\Transformers\xPDOObjectTransformer;
 use MODXSlim\Api\TypeCast\Caster;
-use MODXSlim\Api\DI\Interfaces\FactoryInterface;
 
 abstract class Restful implements RequestHandlerInterface
 {
-    /** @var FactoryInterface */
-    private FactoryInterface $factoryInterface;
-
-    protected static string $transformer = xPDOObjectTransformer::class;
 
     /** @var modX */
     protected modX $modx;
 
-    public function __construct(modX $modx, FactoryInterface $factoryInterface)
+    public function __construct(modX $modx)
     {
-        $this->factoryInterface = $factoryInterface;
         $this->modx = $modx;
     }
 
@@ -106,16 +98,13 @@ abstract class Restful implements RequestHandlerInterface
     /**
      * @param ServerRequestInterface $request
      * @param \Iterator|array $collection
-     * @param null $transformer
-     * @param array $transformerParams
      * @param array $meta
      * @param array $params
      * @return ResponseInterface
      */
-    protected function respondWithCollection(ServerRequestInterface $request, \Iterator|array $collection, $transformer = null, array $transformerParams = [], array $meta = [], array $params = []): ResponseInterface
+    protected function respondWithCollection(ServerRequestInterface $request, \Iterator|array $collection, array $meta = [], array $params = []): ResponseInterface
     {
-        $transformer = $this->factoryInterface->make($transformer ?: static::$transformer);
-        $data = $transformer->transformCollection($collection, $transformerParams);
+        $data = $collection;
 
         $total = $meta['total'] ?? count($data);
         $returned = count($data);
@@ -136,11 +125,9 @@ abstract class Restful implements RequestHandlerInterface
         ]);
     }
 
-    protected function respondWithItem(ServerRequestInterface $request, $item, $transformer = null, array $transformerParams = []): ResponseInterface
+    protected function respondWithItem(ServerRequestInterface $request, $item): ResponseInterface
     {
-        $transformer = $this->factoryInterface->make($transformer ?: static::$transformer);
-
-        return $this->respond($request, $transformer->transformItem($item, $transformerParams));
+        return $this->respond($request, $item);
     }
 
     protected function respond(ServerRequestInterface $request, array $data): ResponseInterface
