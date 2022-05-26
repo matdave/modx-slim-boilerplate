@@ -20,6 +20,6 @@ require_once MODX_CORE_PATH . "vendor/autoload.php";
 
 $settings = (require __DIR__ . '/dependencies.php')($settings);
 
-$container = new MODXSlim\Api\DI\Container($settings);
+$container = new MODXSlim\Api\DI\Container($settings, new MODXSlim\Api\DI\ReflectionResolver());
 
 return $container;
