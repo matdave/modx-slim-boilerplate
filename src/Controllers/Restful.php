@@ -11,17 +11,17 @@ use Psr\Http\Message\ResponseInterface;
 use MODXSlim\Api\Transformers\Transformer;
 use MODXSlim\Api\Transformers\xPDOObjectTransformer;
 use MODXSlim\Api\TypeCast\Caster;
-use MODXSlim\Api\DI\Interfaces\FactoryInterface;
+use Middlewares\Utils\FactoryInterface;
 
 abstract class Restful implements RequestHandlerInterface
 {
-    /** @var \DI\FactoryInterface */
-    private $factoryInterface;
+    /** @var FactoryInterface */
+    private FactoryInterface $factoryInterface;
 
-    protected static $transformer = xPDOObjectTransformer::class;
+    protected static string $transformer = xPDOObjectTransformer::class;
 
     /** @var modX */
-    protected $modx;
+    protected modX $modx;
 
     public function __construct(modX $modx, FactoryInterface $factoryInterface)
     {
@@ -29,6 +29,9 @@ abstract class Restful implements RequestHandlerInterface
         $this->modx = $modx;
     }
 
+    /**
+     * @throws RestfulException
+     */
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
         $method = strtolower($request->getMethod());
@@ -42,12 +45,12 @@ abstract class Restful implements RequestHandlerInterface
     /**
      * Merge url params and query params
      *
-     * @param  ServerRequestInterface  $request
-     * @param  array  $defaultParams
-     * @param  array  $paramsCast
-     *
+     * @param ServerRequestInterface $request
+     * @param array $defaultParams
+     * @param array $paramsCast
+     * @param array $paramLimits
      * @return array
-     * @throws \MODXSlim\Api\Exceptions\RestfulException
+     * @throws RestfulException
      */
     protected function getParams(ServerRequestInterface $request, array $defaultParams = [], array $paramsCast = [], array $paramLimits = []): array
     {
@@ -102,13 +105,14 @@ abstract class Restful implements RequestHandlerInterface
 
     /**
      * @param ServerRequestInterface $request
-     * @param array|\Iterator $collection
-     * @param Transformer|null $transformer
+     * @param \Iterator|array $collection
+     * @param null $transformer
+     * @param array $transformerParams
      * @param array $meta
      * @param array $params
      * @return ResponseInterface
      */
-    protected function respondWithCollection(ServerRequestInterface $request, $collection, $transformer = null, array $transformerParams = [], array $meta = [], array $params = []): ResponseInterface
+    protected function respondWithCollection(ServerRequestInterface $request, \Iterator|array $collection, $transformer = null, array $transformerParams = [], array $meta = [], array $params = []): ResponseInterface
     {
         $transformer = $this->factoryInterface->make($transformer ?: static::$transformer);
         $data = $transformer->transformCollection($collection, $transformerParams);

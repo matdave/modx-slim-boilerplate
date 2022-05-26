@@ -11,7 +11,7 @@ use MODXSlim\Api\Controllers\Restful;
 
 class Resource extends Restful
 {
-    protected static $transformer = ResourceTransformer::class;
+    protected static string $transformer = ResourceTransformer::class;
 
     /**
      * @param ServerRequestInterface $request
