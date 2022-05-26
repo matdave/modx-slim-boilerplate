@@ -2,9 +2,9 @@
 
 namespace MODXSlim\Api\DI;
 
-use DMODXSlim\Api\DI\Exception\ContainerException;
-use DMODXSlim\Api\DI\Exception\NotFoundException;
-use DMODXSlim\Api\DI\Interfaces\ResolverClassInterface;
+use MODXSlim\Api\DI\Exception\ContainerException;
+use MODXSlim\Api\DI\Exception\NotFoundException;
+use MODXSlim\Api\DI\Interfaces\ResolverClassInterface;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\ContainerInterface;
 use Psr\Container\NotFoundExceptionInterface;
