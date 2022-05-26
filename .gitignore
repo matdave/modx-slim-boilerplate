@@ -1,0 +1,15 @@
+vendor
+.idea/
+.vscode/
+config/local.php
+.env
+
+.php-cs-fixer.cache
+
+var/*
+!var/.gitignore
+
+deploy*.sh
+
+# twig cache
+compilation_cache/*

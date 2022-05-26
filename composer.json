@@ -1,0 +1,20 @@
+{
+  "require": {
+    "ext-json": "*",
+    "middlewares/trailing-slash": "^2.0",
+    "monolog/monolog": "^2.1",
+    "slim/psr7": "^1.1",
+    "slim/slim": "4.*",
+    "tuupola/cors-middleware": "^1.2",
+    "vlucas/phpdotenv": "^5.3"
+  },
+  "autoload": {
+    "psr-4": {
+      "MODXSlim\\Api\\": "src/"
+    }
+  },
+  "config": {
+    "process-timeout": 0,
+    "sort-packages": true
+  }
+}
