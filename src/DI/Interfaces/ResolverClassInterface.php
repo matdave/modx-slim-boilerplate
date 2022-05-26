@@ -2,6 +2,8 @@
 
 namespace MODXSlim\Api\DI\Interfaces;
 
+use Psr\Container\ContainerInterface;
+
 interface ResolverClassInterface
 {
     /**
