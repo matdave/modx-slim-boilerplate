@@ -11,7 +11,7 @@ use Psr\Http\Message\ResponseInterface;
 use MODXSlim\Api\Transformers\Transformer;
 use MODXSlim\Api\Transformers\xPDOObjectTransformer;
 use MODXSlim\Api\TypeCast\Caster;
-use Middlewares\Utils\FactoryInterface;
+use MODXSlim\Api\DI\Interfaces\FactoryInterface;
 
 abstract class Restful implements RequestHandlerInterface
 {

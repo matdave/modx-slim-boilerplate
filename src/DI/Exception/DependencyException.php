@@ -4,6 +4,6 @@ namespace MODXSlim\Api\DI\Exception;
 
 use Psr\Container\ContainerExceptionInterface;
 
-class ContainerException extends \Exception implements ContainerExceptionInterface
+class DependencyException extends \Exception implements ContainerExceptionInterface
 {
 }

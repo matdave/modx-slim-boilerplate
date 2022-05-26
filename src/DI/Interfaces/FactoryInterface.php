@@ -3,6 +3,8 @@
 namespace MODXSlim\Api\DI\Interfaces;
 
 use InvalidArgumentException;
+use MODXSlim\Api\DI\Exception\DependencyException;
+use MODXSlim\Api\DI\Exception\NotFoundException;
 
 interface FactoryInterface
 {
