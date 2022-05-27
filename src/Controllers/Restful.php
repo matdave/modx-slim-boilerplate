@@ -55,7 +55,7 @@ abstract class Restful implements RequestHandlerInterface
             foreach ($params as $param) {
                 [$key, $value] = explode(':', $param);
                 if ($value !== null) {
-                    $parsedParams[$key] = $value;
+                    $parsedParams[$key] = strip_tags($this->modx->sanitizeString($value));
                 }
             }
         }
