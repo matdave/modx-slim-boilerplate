@@ -46,7 +46,7 @@ abstract class Restful implements RequestHandlerInterface
      */
     protected function getParams(ServerRequestInterface $request, array $defaultParams = [], array $paramsCast = [], array $paramLimits = []): array
     {
-        $urlParams = $request->getAttribute('params', '');
+        $urlParams = $request->getAttribute('params');
 
         $parsedParams = [];
 
@@ -60,7 +60,12 @@ abstract class Restful implements RequestHandlerInterface
             }
         }
 
-        $allParams = array_merge($defaultParams, $request->getQueryParams(), $parsedParams);
+        $queryParams = [];
+        foreach ($request->getQueryParams() as $key => $value) {
+            $queryParams[$key] = strip_tags($this->modx->sanitizeString($value));
+        }
+
+        $allParams = array_merge($defaultParams, $queryParams, $parsedParams);
 
         try {
             Caster::castArray($allParams, $paramsCast);
