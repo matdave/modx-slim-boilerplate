@@ -37,17 +37,13 @@ class Search extends Restful
         $condition = ['context_key' => $params['context'], 'published' => true, 'deleted' => false];
         if ($params['query']) {
             $query = [
-                'pagetitle:LIKE' => '%'.$params['query'].'%',
-                'OR:longtitle:LIKE' => '%'.$params['query'].'%',
-                'OR:description:LIKE' => '%'.$params['query'].'%',
-                'OR:menutitle:LIKE' => '%'.$params['query'].'%',
-                'OR:content:LIKE' => '%'.$params['query'].'%',
+                '`modResource`.`pagetitle`',
+                '`modResource`.`longtitle`',
+                '`modResource`.`description`',
+                '`modResource`.`introtext`',
+                '`modResource`.`content`',
             ];
-            foreach($tvs as $tv) {
-                if(empty($tv)) continue;
-                $query['OR:tv_'.$tv.':LIKE'] = '%'.$params['query'].'%';
-            }
-            $condition[] = $query;
+            $condition[] = "MATCH(".implode(', ', $query).") AGAINST ('".$params['query']."' IN NATURAL LANGUAGE MODE)";
         }
 
         /** @var modResource $resource */
@@ -55,6 +51,7 @@ class Search extends Restful
         $query = $this->modx->newQuery(modResource::class);
         $query->select($this->modx->getSelectColumns(modResource::class, 'modResource'));
         $query->where($condition);
+        $total = $this->modx->getCount(modResource::class, $query);
         if($tvs) {
             $this->joinTVs($query, $tvs);
         }
@@ -69,6 +66,6 @@ class Search extends Restful
             $arr['content'] = $resource->parseContent();
             $data[] = $arr;
         }
-        return $this->respondWithCollection($request, $data);
+        return $this->respondWithCollection($request, $data, ['total' => $total], $params);
     }
 }

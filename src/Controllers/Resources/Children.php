@@ -44,6 +44,7 @@ class Children extends Restful
         $query = $this->modx->newQuery(modResource::class);
         $query->select($this->modx->getSelectColumns(modResource::class, 'modResource'));
         $query->where($condition);
+        $total = $this->modx->getCount(modResource::class, $query);
         if($tvs) {
             $this->joinTVs($query, $tvs);
         }
@@ -59,6 +60,6 @@ class Children extends Restful
             $arr['content'] = $resource->parseContent();
             $data[] = $arr;
         }
-        return $this->respondWithCollection($request, $data);
+        return $this->respondWithCollection($request, $data, ['total' => $total], $params);
     }
 }

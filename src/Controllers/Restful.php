@@ -108,8 +108,8 @@ abstract class Restful implements RequestHandlerInterface
 
         $total = $meta['total'] ?? count($data);
         $returned = count($data);
-        $page = ($params['page']) ? (int)$params['page'] : 1;
-        $limit = (int)$params['limit'];
+        $page = (isset($params['page'])) ? (int)$params['page'] : 1;
+        $limit = (isset($params['limit'])) ? (int)$params['limit'] : $returned;
 
         $hasMore = false;
         if ($limit !== 0) {
@@ -119,7 +119,7 @@ abstract class Restful implements RequestHandlerInterface
         return $this->respond($request, [
             'total' => (int)$total,
             'hasMore' => $hasMore,
-            'returned' => (int)$returned,
+            'returned' => $returned,
             'params' => $params,
             'data' => $data
         ]);
