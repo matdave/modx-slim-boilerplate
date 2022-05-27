@@ -21,7 +21,7 @@ class Listing extends Restful
      */
     public function get(ServerRequestInterface $request): ResponseInterface
     {
-        $defaultParams = ['tvs' => null, 'ignoreMenu' => false, 'start' => 0, 'context' => 'web', 'sortBy' => 'menuindex'];
+        $defaultParams = ['tvs' => null, 'ignoreMenu' => false, 'start' => 0, 'context' => 'web', 'sortBy' => 'menuindex', 'page' => 1, 'limit' => 10];
         $paramsCast = ['ignoreMenu' => 'boolean', 'start' => 'int'];
         $paramLimits = [
             'limit' => [

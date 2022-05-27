@@ -21,7 +21,7 @@ class Search extends Restful
      */
     public function get(ServerRequestInterface $request): ResponseInterface
     {
-        $defaultParams = ['tvs' => null, 'query' => null, 'context' => 'web'];
+        $defaultParams = ['tvs' => null, 'query' => null, 'context' => 'web', 'page' => 1, 'limit' => 10];
         $paramsCast = ['ignoreMenu' => 'boolean'];
         $paramLimits = [
             'limit' => [

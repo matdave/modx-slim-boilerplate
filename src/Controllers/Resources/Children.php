@@ -21,7 +21,7 @@ class Children extends Restful
      */
     public function get(ServerRequestInterface $request): ResponseInterface
     {
-        $defaultParams = ['tvs' => null, 'ignoreMenu' => false, 'sortBy' => 'menuindex'];
+        $defaultParams = ['tvs' => null, 'ignoreMenu' => false, 'sortBy' => 'menuindex', 'page' => 1, 'limit' => 10];
         $paramsCast = ['ignoreMenu' => 'boolean'];
         $paramLimits = [
             'limit' => [
