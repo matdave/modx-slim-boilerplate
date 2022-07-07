@@ -1,10 +1,13 @@
 <?php
 declare(strict_types=1);
 
+use MODxSlim\Api\Controllers\Items\Item;
+use MODxSlim\Api\Controllers\Items\Listing as ItemListing;
+use MODxSlim\Api\Controllers\Items\Search as ItemSearch;
 use MODXSlim\Api\Controllers\Resources\Children;
-use MODXSlim\Api\Controllers\Resources\Listing;
+use MODXSlim\Api\Controllers\Resources\Listing as ResourceListing;
 use MODXSlim\Api\Controllers\Resources\Resource;
-use MODXSlim\Api\Controllers\Resources\Search;
+use MODXSlim\Api\Controllers\Resources\Search as ResourceSearch;
 use Slim\App;
 use Slim\Routing\RouteCollectorProxy;
 use MODXSlim\Api\Middleware\Restful;
@@ -21,10 +24,10 @@ return new class {
         $app->group(
             '/resources',
             function (RouteCollectorProxy $group) use ($restful) {
-                $group->any('/list[/' . self::PARAMS . ']', Listing::class)->add(
+                $group->any('/list[/' . self::PARAMS . ']', ResourceListing::class)->add(
                     $restful->withAllowedMethods(['GET'])
                 );
-                $group->any('/search[/' . self::PARAMS . ']', Search::class)->add(
+                $group->any('/search[/' . self::PARAMS . ']', ResourceSearch::class)->add(
                     $restful->withAllowedMethods(['GET'])
                 );
                 $group->group(
@@ -34,6 +37,26 @@ return new class {
                             $restful->withAllowedMethods(['GET'])
                         );
                         $group->any('/children[/' . self::PARAMS . ']', Children::class)->add(
+                            $restful->withAllowedMethods(['GET'])
+                        );
+                    }
+                );
+            }
+        );
+        // Using a custom opbject
+        $app->group(
+            '/items',
+            function (RouteCollectorProxy $group) use ($restful) {
+                $group->any('/list[/' . self::PARAMS . ']', ItemListing::class)->add(
+                    $restful->withAllowedMethods(['GET'])
+                );
+                $group->any('/search[/' . self::PARAMS . ']', ItemSearch::class)->add(
+                    $restful->withAllowedMethods(['GET'])
+                );
+                $group->group(
+                    '/' . self::ID,
+                    function (RouteCollectorProxy $group) use ($restful) {
+                        $group->any('', Item::class)->add(
                             $restful->withAllowedMethods(['GET'])
                         );
                     }
