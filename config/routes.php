@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-use MODxSlim\Api\Controllers\Items\Item;
-use MODxSlim\Api\Controllers\Items\Listing as ItemListing;
-use MODxSlim\Api\Controllers\Items\Search as ItemSearch;
+use MODXSlim\Api\Controllers\Items\Item;
+use MODXSlim\Api\Controllers\Items\Listing as ItemListing;
+use MODXSlim\Api\Controllers\Items\Search as ItemSearch;
 use MODXSlim\Api\Controllers\Resources\Children;
 use MODXSlim\Api\Controllers\Resources\Listing as ResourceListing;
 use MODXSlim\Api\Controllers\Resources\Resource;

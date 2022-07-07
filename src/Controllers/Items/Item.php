@@ -1,6 +1,6 @@
 <?php
 
-namespace MODxSlim\Api\Controllers\Items;
+namespace MODXSlim\Api\Controllers\Items;
 
 use BasePackage\Model\Item as BPItem;
 use MODXSlim\Api\Exceptions\RestfulException;
