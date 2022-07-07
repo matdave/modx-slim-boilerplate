@@ -36,9 +36,9 @@ class Search extends Restful
                 '`Item`.`title`',
                 '`Item`.`description`',
             ];
-            $condition[] = "MATCH(".implode(', ', $query).") AGAINST ('".$params['query']."' WITH QUERY EXPANSION)";
+            $condition[] = "MATCH(".implode(', ', $query).") AGAINST ('".$params['query']."')";
         }
-        if ($params['featured']) {
+        if (isset($params['featured'])) {
             $condition['featured:='] = $params['featured'];
         }
 

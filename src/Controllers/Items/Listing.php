@@ -31,7 +31,7 @@ class Listing extends Restful
         ];
         $params = $this->getParams($request, $defaultParams, $paramsCast, $paramLimits);
         $condition = [];
-        if ($params['featured']) {
+        if (isset($params['featured'])) {
             $condition['featured:='] = $params['featured'];
         }
 

@@ -43,7 +43,7 @@ class Search extends Restful
                 '`modResource`.`introtext`',
                 '`modResource`.`content`',
             ];
-            $condition[] = "MATCH(".implode(', ', $query).") AGAINST ('".$params['query']."' WITH QUERY EXPANSION)";
+            $condition[] = "MATCH(".implode(', ', $query).") AGAINST ('".$params['query']."')";
         }
 
         /** @var modResource $resource */
